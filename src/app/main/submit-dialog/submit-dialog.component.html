@@ -1,0 +1,28 @@
+<button mat-icon-button style="float: right" [mat-dialog-close]="true">
+  <mat-icon>close</mat-icon>
+</button>
+<h1 mat-dialog-title>
+  {{ (allTargetsMet ? 'Submit result' : 'Warning: not all targets met') | translate }}
+</h1>
+<div mat-dialog-content style="min-width: 250px">
+  <p *ngIf="allTargetsMet" [innerHTML]="'allTargetsMet' | translate">
+  </p>
+  <p *ngIf="result.totalProfit > 0" [innerHTML]="'profitMessage' | translate:{profit: result.totalProfit}">
+  </p>
+  <p *ngIf="!ghgTargetMet" [innerHTML]="'warningGhgNotMet' | translate:{tax: result.totalTax}">
+  </p>
+  <p *ngIf="!eeTargetMet" [innerHTML]="'warningEeTargetNotMet' | translate">
+  </p>
+  <p *ngIf="!reTargetMet" [innerHTML]="'warningReTargetNotMet' | translate">
+  </p>
+  <p *ngIf="result.totalTax > 0">
+    <span [innerHTML]="'warningCost' | translate:{tax: result.totalTax}"></span>&nbsp;<a [href]="" (click)="showCostComparisonDialog()">{{ 'Find out what could be done with this budget instead' | translate }}</a>.
+  </p>
+</div>
+<mat-divider class="vertical-spaced"></mat-divider>
+<div *ngIf="!allTargetsMet">
+  <mat-checkbox [(ngModel)]="agree" class="wrap">{{ 'agreeWithNotAllTargetsMet' | translate }}</mat-checkbox>
+</div>
+<div>
+  <button mat-raised-button color="primary" (click)="ok()" [disabled]="!allTargetsMet && !agree">{{ 'Submit' | translate }}</button>
+</div>

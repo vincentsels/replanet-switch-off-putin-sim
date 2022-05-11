@@ -1,0 +1,70 @@
+<div *ngIf="proposal" class="proposal" matRipple [matRippleDisabled]="proposal.selected">
+  <mat-card class="proposal-card" [class.selectable]="!proposal.selected" (click)="selectProposal()">
+    <app-proposal-header [proposal]="proposal" [card]="true"></app-proposal-header>
+
+    <div style="clear: both" *ngIf="proposal.selected">
+      <mat-button-toggle-group class="variants" name="variant">
+        <mat-button-toggle (click)="clearVariant(); $event.stopPropagation()" [checked]="!proposal.selected" matTooltip="{{ 'Deselect' | translate }}">
+          <div class="ambition-level" fxHide.lt-sm>
+            <div class="ambition-level-title">X</div>
+          </div>
+          <div fxHide.gt-xs>{{ 'None' | translate }}</div>
+        </mat-button-toggle>
+        <mat-button-toggle *ngFor="let variant of proposal.variants" [checked]="variant.selected"
+          (click)="updateSelected(variant); $event.stopPropagation()">
+          <div fxHide.gt-xs>
+            {{ variant.ambitionLevel }}
+          </div>
+          <div class="ambition-level" fxHide.lt-sm>
+            <div class="ambition-level-title" fxHide.lt-sm>{{ variant.ambitionLevel }}</div>
+            <div class="ambition-level-body">
+              <span class="ambition-level-body-text" fxHide.lt-lg>{{ variant.title | translateTextAsync | async }}</span>
+              <span class="ambition-level-body-icons">
+                <span class="ambition-level-reduction">
+                  <mat-icon class="inline">cloud_download</mat-icon> {{ variant.getTargetAmount(enums.TargetType.ghgReduction) | number }} kt
+                </span>
+                <span class="ambition-level-cost" fxHide.lt-lg>
+                  <mat-icon class="inline" style="margin-left: 12px">euro</mat-icon> {{ variant.getTotalCost() | number }}
+                </span>
+              </span>
+            </div>
+          </div>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <div class="variant-body">
+        <div *ngIf="proposal.selectedAmbitionLevel && getSelectedVariant(); let selectedVariant">
+          <div fxLayout fxLayoutGap="12px">
+            <div fxFlex="30%">
+              <h3>{{ 'Cost' | translate }}</h3>
+              <div>{{ 'Initial' | translate }}: €&nbsp;{{ selectedVariant.costInitial | number }}</div>
+              <div *ngIf="selectedVariant.costPerYearFixed">{{ 'Yearly' | translate }}: €&nbsp;{{ selectedVariant.costPerYearFixed | number }}</div>
+              <div><label>{{ 'Total' | translate }}: €&nbsp;{{ selectedVariant.getTotalCost() | number }}</label></div>
+            </div>
+
+            <div fxFlex="30%">
+              <h3>{{ 'Targets' | translate }}</h3>
+              <div *ngIf="selectedVariant.getTargetAmount(enums.TargetType.ghgReduction); let amount;">
+                <mat-icon class="inline">cloud_download</mat-icon> {{ amount | number }} kt
+              </div>
+              <div *ngIf="selectedVariant.getTargetAmount(enums.TargetType.energyEfficiency); let amount;">
+                <mat-icon class="inline">savings</mat-icon> {{ amount | number }} GWh
+              </div>
+              <div *ngIf="selectedVariant.getTargetAmount(enums.TargetType.renewableEnergy); let amount;">
+                <mat-icon class="inline">wb_sunny</mat-icon> {{ amount | number }} GWh
+              </div>
+            </div>
+            <div fxFlex="40%" *ngIf="selectedVariant.impacts && selectedVariant.impacts.length > 1">
+              <h3>{{ 'Impact' | translate }}</h3>
+              <div *ngFor="let impact of selectedVariant.impacts" ngClass.xs="impact-xs">
+                <mat-icon class="inline icon-list-item" [class]="impact.getImpactAmountClass()" matTooltip="{{ enums.ImpactDomain[impact.domain] | translate }}">{{ impact.getImpactDomainIcon() }}</mat-icon>
+                <span fxHide.lt-sm>{{ enums.ImpactDomain[impact.domain] | translate }}</span><span fxHide.lt-md>: {{ enums.ImpactAmount[impact.amount] | translate }}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

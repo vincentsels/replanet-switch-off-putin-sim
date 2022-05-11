@@ -1,0 +1,195 @@
+<div *ngIf="proposal" [class.page-container]="!dialog">
+  <app-proposal-header [proposal]="proposal" [dialog]="dialog" (closeDialog)="closeDialog()"></app-proposal-header>
+
+  <div *ngIf="proposal.description">
+    <h2 class="clear detail-section-header">{{ 'Description' | translate }}</h2>
+
+    <markdown [data]="proposal.description | translateText"></markdown>
+  </div>
+
+  <h2 class="clear detail-section-header">{{ 'Variants' | translate }}</h2>
+
+  <div class="variant-list">
+    <mat-card class="variant" *ngFor="let variant of proposal.variants">
+      <h3 *ngIf="proposal.variants.length > 1">{{ variant.ambitionLevel }} - {{ variant.title | translateText }}</h3>
+
+      <div class="variant-body">
+        <p *ngIf="proposal.variants.length > 1">{{ variant.description | translateText }}</p>
+
+        <div class="variant-body-numbers" fxLayout fxLayoutGap="12px">
+          <div>
+            <h3>{{ 'Cost' | translate }}</h3>
+            <div>{{ 'Initial' | translate }}: €&nbsp;{{ variant.costInitial | number }}</div>
+            <div *ngIf="variant.costPerYearFixed">{{ 'Yearly' | translate }}: €&nbsp;{{ variant.costPerYearFixed | number }}</div>
+            <div><label>{{ 'Total' | translate }}: €&nbsp;{{ variant.getTotalCost() | number }}</label></div>
+          </div>
+
+          <div>
+            <h3>{{ 'Targets' | translate }}</h3>
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.ghgReduction); let amount;">
+              <mat-icon class="inline">cloud_download</mat-icon> {{ amount | number }} kt
+            </div>
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.energyEfficiency); let amount;">
+              <mat-icon class="inline">savings</mat-icon> {{ amount | number }} GWh
+            </div>
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.renewableEnergy); let amount;">
+              <mat-icon class="inline">wb_sunny</mat-icon> {{ amount | number }} GWh
+            </div>
+          </div>
+          <div *ngIf="variant.impacts && variant.impacts.length > 1">
+            <h3>{{ 'Impact' | translate }}</h3>
+            <div *ngFor="let impact of variant.impacts" ngClass.xs="impact-xs">
+              <mat-icon class="inline icon-list-item" [class]="impact.getImpactAmountClass()" matTooltip="{{ enums.ImpactDomain[impact.domain] | translate }}">{{ impact.getImpactDomainIcon() }}</mat-icon>
+              <span fxHide.lt-sm>{{ enums.ImpactDomain[impact.domain] | translate }}</span><span fxHide.lt-md>: {{ enums.ImpactAmount[impact.amount] | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <mat-button-toggle [checked]="variant.selected" (change)="updateSelected(variant)">
+          <span *ngIf="variant.selected"><mat-icon class="inline" style="width: 16px;">checked</mat-icon> {{ 'Selected' | translate }}</span>
+          <span *ngIf="!variant.selected">{{ 'Select' | translate }}</span>
+        </mat-button-toggle>
+      </div>
+    </mat-card>
+  </div>
+
+  <h2 class="detail-section-header">
+    {{ 'Political party stances' | translate }}
+    <small class="all-parties-checkbox">
+      <mat-checkbox [(ngModel)]="allParties">{{ 'Show all parties' | translate }}</mat-checkbox>
+    </small>
+  </h2>
+
+  <div class="party-opinions">
+    <div *ngFor="let opinion of getOpinions()" class="party-opinion" ngClass.xs="party-opinion-xs">
+
+      <mat-expansion-panel class="party-opinion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="party-opinion-title">
+              <app-party-logo-or-name [partyId]="opinion.partyId"></app-party-logo-or-name>
+
+              <span class="pull-right">
+                <mat-icon *ngIf="opinion.selected" class="success">check_circle</mat-icon>
+                <mat-icon *ngIf="!opinion.selected" class="danger">cancel</mat-icon>
+              </span>
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p *ngIf="opinion.selected && getVariant(opinion.variant || 0); let variant">{{ variant.title | translateText }}</p>
+
+        <p>{{ opinion.opinion | translateText }}</p>
+
+      </mat-expansion-panel>
+    </div>
+  </div>
+
+  <h2 class="detail-section-header">{{ 'Links' | translate }}</h2>
+
+  <div class="link-types">
+    <div class="link-type" ngClass.xs="link-type-xs">
+      <h3>{{ 'Media articles' | translate }}</h3>
+      <ul *ngIf="proposal.linksToMediaArticles.length > 0">
+        <li *ngFor="let link of proposal.linksToMediaArticles">
+          <a [href]="link.url" class="link">
+            <mat-icon class="inline">open_in_new</mat-icon>
+            {{ link.title }}
+          </a>
+        </li>
+      </ul>
+      <p class="info" *ngIf="proposal.linksToMediaArticles.length === 0">
+        {{ 'There are not yet any links of this type for this proposal.' | translate }}
+      </p>
+    </div>
+
+    <div class="link-type" ngClass.xs="link-type-xs">
+      <h3>{{ 'Debates' | translate }}</h3>
+      <ul *ngIf="proposal.linksToDebates.length > 0">
+        <li *ngFor="let link of proposal.linksToDebates">
+          <a [href]="link.url" class="link">
+            <mat-icon class="inline">open_in_new</mat-icon>
+            {{ link.title }}
+          </a>
+        </li>
+      </ul>
+      <p class="info" *ngIf="proposal.linksToDebates.length === 0">
+        {{ 'There are not yet any links of this type for this proposal.' | translate }}
+      </p>
+    </div>
+
+    <div class="link-type" ngClass.xs="link-type-xs">
+      <h3>{{ 'Scientific papers' | translate }}</h3>
+      <ul *ngIf="proposal.linksToPapers.length > 0">
+        <li *ngFor="let link of proposal.linksToPapers">
+          <a [href]="link.url" class="link">
+            <mat-icon class="inline">open_in_new</mat-icon>
+            {{ link.title }}
+          </a>
+      </li>
+      </ul>
+      <p class="info" *ngIf="proposal.linksToPapers.length === 0">
+        {{ 'There are not yet any links of this type for this proposal.' | translate }}
+      </p>
+    </div>
+
+    <div class="link-type" ngClass.xs="link-type-xs">
+      <h3>{{ 'Examples abroad' | translate }}</h3>
+      <ul *ngIf="proposal.linksToExamplesAbroad.length > 0">
+        <li *ngFor="let link of proposal.linksToExamplesAbroad">
+          <a [href]="link.url" class="link">
+            <mat-icon class="inline">open_in_new</mat-icon>
+            <span class="link-title">{{ link.title }}</span>
+          </a>
+      </li>
+      </ul>
+      <p class="info" *ngIf="proposal.linksToExamplesAbroad.length === 0">
+        {{ 'There are not yet any links of this type for this proposal.' | translate }}
+      </p>
+    </div>
+
+    <div class="link-type" ngClass.xs="link-type-xs">
+      <h3>{{ 'Explainers' | translate }}</h3>
+      <ul *ngIf="proposal.linksToExplainers.length > 0">
+        <li *ngFor="let link of proposal.linksToExplainers">
+          <a [href]="link.url" class="link">
+            <mat-icon class="inline">open_in_new</mat-icon>
+            {{ link.title }}
+          </a>
+        </li>
+      </ul>
+      <p class="info" *ngIf="proposal.linksToExplainers.length === 0">
+        {{ 'There are not yet any links of this type for this proposal.' | translate }}
+      </p>
+    </div>
+  </div>
+
+  <h2 class="detail-section-header">{{ 'Frequently Asked Questions' | translate }}</h2>
+
+  <p class="info" *ngIf="proposal.faqs.length === 0">
+    {{ 'There are no Frequently Asked Questions yet for this proposal.' }}
+  </p>
+
+  <div class="faq-list" *ngIf="proposal.faqs.length > 0">
+    <mat-accordion multi>
+      <mat-expansion-panel *ngFor="let faq of proposal.faqs">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ faq.question | translateText }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p class="faq-short-answer">{{ faq.shortAnswer | translateText }}</p>
+
+        <p class="faq-detailed-answer">{{ faq.detailedAnswer | translateText }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <h2 class="detail-section-header">{{ 'Contribute' | translate }}</h2>
+
+  <p>{{ 'contributeText' | translate }}</p>
+
+  <button mat-raised-button color="primary" (click)="contribute()" class="submit-button-lg">{{ 'Ask a question or contribute' | translate }}</button>
+
+</div>

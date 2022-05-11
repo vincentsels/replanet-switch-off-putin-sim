@@ -1,0 +1,32 @@
+app-results-mobile-summary {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.project-filters {
+  float: right;
+  font-size: 14px;
+  margin-top: -8px;
+}
+
+.project-filters-xs {
+  margin-top: 0px;
+  float: none;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.proposals, .results {
+  margin-bottom: 60px;
+}
+
+.results {
+  position: sticky;
+  top: 12px;
+  align-self: flex-start;
+}

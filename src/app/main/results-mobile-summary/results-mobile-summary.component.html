@@ -1,0 +1,54 @@
+<mat-card *ngIf="results$ | async; let results" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="center center">
+  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">cloud_download</mat-icon>
+    </span>
+
+    <mat-progress-bar class="progress" mode="determinate"
+      [color]="results.ghgTarget.color"
+      [value]="results.ghgTarget.percentage">
+    </mat-progress-bar>
+  </div>
+
+  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">savings</mat-icon>
+    </span>
+
+    <mat-progress-bar class="progress" mode="determinate"
+      [color]="results.eeTarget.color"
+      [value]="results.eeTarget.percentage">
+    </mat-progress-bar>
+  </div>
+
+  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">wb_sunny</mat-icon>
+    </span>
+
+    <mat-progress-bar class="progress" mode="determinate"
+      [color]="results.reTarget.color"
+      [value]="results.reTarget.percentage">
+    </mat-progress-bar>
+  </div>
+
+  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">sell</mat-icon>
+    </span>
+
+    <div class="numerical">
+      <span [class.color-accent]="results.totalCost + results.ghgTarget.tax < 0"> {{ results.totalCost + results.ghgTarget.tax | cost }}</span>
+    </div>
+  </div>
+
+  <!-- <mat-card class="result-section-mobile">
+    <span><mat-icon class="inline">public</mat-icon> {{ 'Total impact' | translate }}</span>
+    <div *ngFor="let impactItem of results.totalImpact">
+      <mat-icon class="inline icon-list-item" [class]="impactItem.class" matTooltip="{{ enums.ImpactDomain[impactItem.domain] | translate }}">{{ impactItem.getImpactDomainIcon() }}</mat-icon>
+      {{ enums.ImpactDomain[impactItem.domain] | translate }}: {{ impactItem.amount }}
+    </div>
+  </mat-card> -->
+</mat-card>
+
+<!-- <button mat-raised-button color="primary" (click)="submit()">{{ 'I am happy with these results, publish!' | translate }}</button> -->

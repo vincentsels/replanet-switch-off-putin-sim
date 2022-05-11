@@ -1,0 +1,32 @@
+<div>
+  <button mat-button [matMenuTriggerFor]="langMenu">
+    {{ toUpper(language) }}
+  </button>
+  <mat-menu #langMenu="matMenu">
+    <div class="user-menu">
+      <button mat-menu-item (click)="languageChanged('nl')" *ngIf="language !== 'nl'">NL</button>
+      <button mat-menu-item (click)="languageChanged('fr')" *ngIf="language !== 'fr'">FR</button>
+      <button mat-menu-item (click)="languageChanged('en')" *ngIf="language !== 'en'">EN</button>
+    </div>
+  </mat-menu>
+
+  <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <div class="user-menu">
+      <div class="user-info">
+        <h3>{{ userName }}
+        </h3>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-select placeholder="{{ 'Language' | translate }}" name="language" [value]="language" (selectionChange)="languageChanged($event)">
+        <mat-option *ngFor="let lang of languages" [value]="lang">
+          {{ lang | translate }}
+        </mat-option>
+      </mat-select>
+      <mat-divider></mat-divider>
+      <span class="pull-right" style="margin-top: 10px; margin-bottom: 10px; font-size: smaller;">v{{version}}</span>
+    </div>
+  </mat-menu> -->
+</div>

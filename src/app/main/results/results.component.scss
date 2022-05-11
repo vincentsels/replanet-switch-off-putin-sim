@@ -1,0 +1,42 @@
+.result-section {
+  margin-bottom: 24px;
+}
+
+.numerical {
+  font-size: 120%;
+}
+
+.progress {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.submit-button-lg {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+}
+
+.result-section-collapsed {
+  display: flex;
+
+  .collapsed-header {
+    white-space: nowrap;
+  }
+
+  .progress {
+    width: 100%;
+    margin: 12px;
+    margin-top: 14px;
+    display: inline-block;
+  }
+
+  .collapsed-expand {
+    display: inline-block;
+  }
+
+  .collapsed-header-summary {
+    width: 100%;
+    margin-left: 12px;
+  }
+}

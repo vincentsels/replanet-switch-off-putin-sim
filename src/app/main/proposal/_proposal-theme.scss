@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  $is-dark-theme: map.get($theme, is-dark);
+  $proposal-color: if($is-dark-theme, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.03));
+
+  .proposal-card.selectable {
+    cursor: pointer;
+
+    &:hover {
+      background: $proposal-color;
+    }
+  }
+}

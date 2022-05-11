@@ -1,0 +1,561 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+@use './app/main/proposal/proposal-theme' as proposal;
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$replanet-primary: mat.define-palette(mat.$purple-palette);
+$replanet-accent: mat.define-palette(mat.$teal-palette, A400, A200, A100);
+
+// The warn palette is optional (defaults to red).
+$replanet-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$replanet-theme: mat.define-dark-theme((
+  color: (
+    primary: $replanet-primary,
+    accent: $replanet-accent,
+    warn: $replanet-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($replanet-theme);
+@include proposal.theme($replanet-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/////////////////////////////////////////////////////////////////////////////////////@at-root
+
+$margin-default: 16px;
+$margin-small: 8px;
+$margin-inline: 4px;
+
+.color-primary {
+  color: mat.get-color-from-palette($replanet-primary) !important;
+}
+
+.color-accent {
+  color: mat.get-color-from-palette($replanet-accent) !important;
+}
+
+.color-warn {
+  color: mat.get-color-from-palette($replanet-warn) !important;
+}
+
+.dark-dialog .mat-dialog-container {
+  background-color: #303030;
+}
+
+.success { color: #46f8cf }
+.neutral { color: #ffffff }
+.warning { color: #f8837b }
+.danger { color: #fa4c40 }
+
+.impact-extremely-positive { color: #00ffc3 }
+.impact-very-positive { color: #46f8cf }
+.impact-moderately-positive { color: #86fadf }
+.impact-somewhat-positive { color: #d2f8ef }
+.impact-neutral { color: #ffffff }
+.impact-somewhat-negative { color: #fcc3bf }
+.impact-moderately-negative { color: #f8837b }
+.impact-very-negative { color: #fa4c40 }
+.impact-extremely-negative { color: #ff1d0d }
+
+a {
+  color: mat.get-color-from-palette($replanet-primary, 200);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: mat.get-color-from-palette($replanet-primary, 300);
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  a {
+    color: inherit;
+  }
+}
+
+a.unstyled-link {
+  color: inherit;
+}
+
+label {
+  font-weight: 500;
+}
+
+fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  min-width: 0;
+}
+
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+
+.accent {
+  color: mat.get-color-from-palette($replanet-accent, A200);
+}
+
+.pull-right {
+  float: right;
+  margin-left: $margin-small;
+}
+
+.clear {
+  clear: both;
+}
+
+.alert {
+  padding: $margin-default;
+  border: 1px solid rgba(0,0,0,.03);
+  box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+}
+
+.alert-code {
+  background-color: #fcc3bf;
+}
+
+.success-bg {
+  background-color: #d2f8ef;
+}
+
+.snackbar-success {
+  background-color: #d2f8ef;
+  color: #00ffc3;
+
+  .mat-simple-snackbar-action {
+    color: #00ffc3;
+  }
+}
+
+.snackbar-warning {
+  background-color: #fcc3bf;
+  color: #fa4c40;
+
+  .mat-simple-snackbar-action {
+    color: #fa4c40;
+  }
+}
+
+.warn-bg {
+  background-color: #fcc3bf;
+}
+
+.danger-bg {
+  background-color: #fcc3bf;
+}
+
+.error {
+  background-color: mat.get-color-from-palette($replanet-warn);
+  color: white;
+  padding: 10px;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
+}
+
+.obsolete {
+  opacity: 0.8;
+}
+
+.requested, .planned, .decommissioned {
+  opacity: 0.8;
+}
+
+.commissioned {
+  color: #155724;
+}
+
+.retiring, .decommissioned {
+  color: #721c24;
+}
+
+.info {
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.page-container {
+  margin: $margin-default;
+  padding-bottom: 24px;
+}
+
+.horizontal-form > *:not(:last-child) {
+  margin-right: 12px;
+}
+
+.vertical-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-form > mat-form-field, .vertical-form > .vertical-form-row {
+  width: 100%;
+}
+
+mat-form-field:last-child {
+  margin-right: 0;
+}
+
+// Not sure why these are here. This is needed to fix layout issue on create edit inspection
+.mat-tab-body-content {
+  height: inherit !important;
+  overflow: inherit !important;
+}
+
+// Not sure why these are here. This is needed to fix layout issue on create edit inspection
+.mat-tab-body.mat-tab-body-active {
+  overflow-y: inherit !important;
+}
+
+.mat-tab-label:not(:focus) {
+  opacity: 0.8 !important; // Overwrite for readability
+}
+
+.actions > button+button {
+  margin-left: $margin-inline !important;
+}
+
+.mat-progress-spinner {
+  display: inline-block !important;
+  margin-right: $margin-small;
+}
+
+.mat-button.no-padding {
+  min-width: unset !important;
+  padding: unset !important;
+}
+
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -5px !important;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-button {
+  margin: 2px;
+}
+
+.mat-radio-group {
+  margin-bottom: $margin-default;
+}
+
+.mat-radio-group.horizontal {
+  flex-direction: row;
+  margin-bottom: 10px; // Together with a label on top of it, it is then just as high as form-fields
+
+  .mat-radio-button {
+    margin-right: $margin-default;
+    margin-bottom: $margin-small;
+  }
+}
+
+.width50 {
+  max-width: 50px;
+}
+
+.width60 {
+  max-width: 60px;
+}
+
+.width80 {
+  max-width: 80px;
+}
+
+.width100 {
+  max-width: 100px;
+}
+
+.width120 {
+  max-width: 120px;
+}
+
+.width160 {
+  max-width: 160px;
+}
+
+.width220 {
+  max-width: 220px;
+}
+
+.mat-icon-button.inline, .mat-icon-button mat-icon.inline {
+  width: inherit;
+  height: inherit;
+  line-height: inherit;
+}
+
+table, li, mat-table {
+  button.mat-icon-button {
+    opacity: 0.5;
+  }
+
+  button.mat-icon-button:hover {
+    opacity: 1;
+  }
+}
+
+.mat-icon.inline {
+  font-size: 120%;
+  vertical-align: text-bottom;
+  margin-right: $margin-inline;
+  height: unset;
+  width: unset;
+}
+
+mat-button-toggle-group {
+  // Strange that this is necessary...
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+  border: none !important;
+  height: 36px;
+  margin: 8px;
+}
+
+mat-button-toggle {
+  // Strange that this is necessary...
+  background-color: unset !important;
+
+  &.mat-button-toggle-checked {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+mat-button-toggle.img-button > button > .mat-button-toggle-label-content {
+  padding: 0 8px !important;
+  line-height: 36px !important;
+  padding-bottom: 2px !important;
+}
+
+mat-button-toggle-group.inline-buttons button > .mat-button-toggle-label-content  {
+  padding: 0 6px !important;
+  line-height: unset !important;
+}
+
+.mat-toolbar.mat-primary {
+  .mat-button-toggle {
+    color: white;
+  }
+
+  .mat-button-toggle-checked {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: default;
+  }
+
+  .mat-button-toggle-label-content {
+    padding-bottom: 2px;
+  }
+}
+
+.mat-button-toggle+.mat-button-toggle {
+  border-left: 1px solid rgba(0,0,0,.12);
+}
+
+.mat-form-field-suffix {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.border-right-cell {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: rgba(0, 0, 0, 0.12);
+}
+
+button.icon-button {
+  margin-right: 8px;
+  padding: 0;
+  min-width: 36px;
+}
+
+.inverted-form {
+  .mat-hint, .mat-form-field-label, .mat-input-element:disabled {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .mat-input-element, .mat-datepicker-toggle-default-icon, .mat-form-field-suffix {
+    color: white;
+  }
+
+  .mat-checkbox {
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+
+  .mat-checkbox-frame {
+    border-color: white;
+  }
+}
+
+.mat-checkbox {
+  margin-bottom: $margin-default; // Other form components are 1.25em; but this seems better
+  margin-right: $margin-small;
+}
+
+.mat-checkbox.wrap {
+  .mat-checkbox-layout {
+    white-space: normal !important;
+  }
+}
+
+div[fxlayout] > mat-form-field+mat-checkbox {
+  margin-top: 20px;
+}
+
+.checkbox-inline {
+  margin-top: 0px; margin-bottom: 0px; margin-left: 12px;
+
+  label {
+    font-weight: normal;
+  }
+}
+
+mat-toolbar button {
+  height: fit-content;
+  margin-top: 4px;
+  margin-right: 8px;
+}
+
+mat-button-toggle-group.img-buttons > mat-button-toggle > button > div {
+  padding: 0 8px !important;
+  line-height: 36px !important;
+}
+
+mat-divider.vertical-spaced {
+  margin-top: $margin-default;
+  margin-bottom: $margin-default;
+}
+
+.mat-table.condensed {
+  .mat-header-row, .mat-footer-row, .mat-row {
+    min-height: 36px;
+  }
+}
+
+.full-tooltip {
+  word-break: break-all !important;
+  white-space: normal !important;
+}
+
+markdown {
+  img {
+    max-width: 100%;
+  }
+}
+
+// This mostly doesn't work :s
+// https://stackoverflow.com/questions/53700373/how-to-customize-the-css-for-angular-material-paginator
+// https://stackoverflow.com/questions/53755894/styling-angular-material-paginator
+::ng-deep.mat-paginator .mat-paginator-container{
+  min-height: 36px;
+}
+
+.mat-table.selectable-rows .mat-row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+@media print {
+  .mat-select-arrow-wrapper {
+    visibility: collapse;
+  }
+}
+
+// Source: https://github.com/angular/components/issues/8494#issuecomment-359607760
+
+// By default, the mobile label shouldn't show
+.mobile-label {
+  display: none;
+}
+
+@media(max-width: 720px) {
+  // Custom header label that shows in each column, with a set width and bold font
+  .mobile-label {
+    margin-right: 6px;
+    display: inline-block;
+    font-weight: 500;
+  }
+
+  // Remove the header row altogether
+  .mat-header-row {
+    display: none;
+  }
+
+  // The row cells should display as a column, justified left, with a bit of extra padding
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 16px;
+    min-height: unset; // Tweak for Angular Material 8
+  }
+
+  // Tweaks for Angular Material 8
+  .mat-cell:first-of-type, .mat-footer-cell:first-of-type, .mat-header-cell:first-of-type {
+    padding-left: unset;
+  }
+
+  .mat-cell {
+    align-items: unset;
+    min-height: unset;
+    max-width: unset!important;
+  }
+
+  mat-footer-row::after, mat-header-row::after, mat-row::after {
+    content: unset!important;
+  }
+}
+
+.releasenotes {
+  img {
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.5);
+    max-width: 100%;
+  }
+
+  hr {
+    margin: 30px 0px;
+    border: none;
+    background-color: #ccc;
+    color: #ccc;
+    height: 1px;
+  }
+
+  h1, h1+p {
+    display: inline-block;
+  }
+
+  blockquote {
+    opacity: 0.7;
+    padding: 8px 24px;
+    margin: 16px 0;
+    border-left: 3px solid #eaeaea;
+
+    p:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}
