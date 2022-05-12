@@ -14,7 +14,7 @@ export class Results {
 
   static pricePerMtCo2 = 100000000;
   static pricePerBcm = 200000000;
-  static pricePerMb = 100000000;
+  static priceDifferencePerMb = 10000000;
 
   rgTarget = new TargetResult(Results.gasGapBcm, 'bcm', Results.pricePerMtCo2);
   roTarget = new TargetResult(Results.oilGapMb, 'mb', Results.pricePerMtCo2);
@@ -23,6 +23,7 @@ export class Results {
   eeTarget = new TargetResult(Results.eeGapTargetTwh, 'Twh');
   reTarget = new TargetResult(Results.reGapTargetTwh, 'Twh');
 
+  totalMoneyToRussia: number = 0;
   totalCost: number = 0;
   totalTax: number = 0;
   totalProfit: number = 0;

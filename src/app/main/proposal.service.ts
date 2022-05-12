@@ -187,6 +187,10 @@ export class ProposalService {
     const roTarget = new TargetResult(Results.oilGapMb, 'mb', 0, russianOilSavedGwh,
       russianOilSavedColor, russianOilSavedPercentage);
 
+    const totalMoneyToRussia =
+      (Results.gasGapBcm - this.getTotalAmount(selectedVariants, TargetType.savedRussianGas)) * Results.pricePerBcm +
+      (Results.oilGapMb - this.getTotalAmount(selectedVariants, TargetType.savedRussianOil)) * Results.priceDifferencePerMb;
+
     const ghgReducedKt = this.getTotalAmount(selectedVariants, TargetType.reducedCo2emissions);
     const ghgReductionPercentage = ghgReducedKt / Results.co2GapCumulativeMt * 100;
     const ghgTax = (Results.co2GapCumulativeMt - ghgReducedKt) * Results.pricePerMtCo2;
@@ -252,6 +256,7 @@ export class ProposalService {
         ghgTarget,
         eeTarget,
         reTarget,
+        totalMoneyToRussia,
         totalCost,
         totalTax,
         totalProfit,

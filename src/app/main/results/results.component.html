@@ -5,6 +5,16 @@
 <div *ngIf="results$ | async; let results">
   <mat-card class="result-section">
     <h2>{{ 'Impact on Putin' | translate }}</h2>
+
+    <h3 class="result-section-collapsed">
+      <span class="collapsed-header">
+        <mat-icon class="inline">request_quote</mat-icon>
+        {{ 'Yearly transfer' | translate }}
+      </span>
+
+      <span class="collapsed-header-summary" [class.color-accent]="results.totalMoneyToRussia === 0"> €&nbsp;{{ results.totalMoneyToRussia | number }}</span>
+    </h3>
+
     <h3 class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">propane</mat-icon>
