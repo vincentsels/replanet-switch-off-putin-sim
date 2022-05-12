@@ -26,13 +26,13 @@
 
           <div>
             <h3>{{ 'Targets' | translate }}</h3>
-            <div *ngIf="variant.getTargetAmount(enums.TargetType.ghgReduction); let amount;">
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.reducedCo2emissions); let amount;">
               <mat-icon class="inline">cloud_download</mat-icon> {{ amount | number }} kt
             </div>
-            <div *ngIf="variant.getTargetAmount(enums.TargetType.energyEfficiency); let amount;">
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.savedEnergy); let amount;">
               <mat-icon class="inline">savings</mat-icon> {{ amount | number }} GWh
             </div>
-            <div *ngIf="variant.getTargetAmount(enums.TargetType.renewableEnergy); let amount;">
+            <div *ngIf="variant.getTargetAmount(enums.TargetType.addedRenewableEnergy); let amount;">
               <mat-icon class="inline">wb_sunny</mat-icon> {{ amount | number }} GWh
             </div>
           </div>

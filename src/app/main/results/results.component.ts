@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { CommonDialogService } from '../../common/dialog.component';
@@ -18,14 +17,13 @@ import { Results } from './results';
 export class ResultsComponent implements OnInit {
   results$: Observable<Results>;
 
-  ghgGapCumulativeKt = Results.co2GapCumulativeMt;
-  reGapTargetGwh = Results.reGapTargetTwh;
-  eeGapTargetGwh = Results.eeGapTargetTwh;
+  gasGapBcm = Results.gasGapBcm;
+  oilGapMb = Results.oilGapMb;
 
-  expandedAll = false;
-  expandedGhg = false;
-  expandedEe = false;
-  expandedRe = false;
+  co2GapCumulativeMt = Results.co2GapCumulativeMt;
+  reGapTargetTwh = Results.reGapTargetTwh;
+  eeGapTargetTwh = Results.eeGapTargetTwh;
+
   expandedTotalCost = false;
   expandedTotalImpact = false;
 
@@ -38,10 +36,6 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.dialog) {
-      this.expandedAll = true;
-      this.expandedGhg = true;
-      this.expandedEe = true;
-      this.expandedRe = true;
       this.expandedTotalCost = true;
       this.expandedTotalImpact = true;
     }
@@ -55,28 +49,6 @@ export class ResultsComponent implements OnInit {
     if (impactAmount === 0) return '+-';
     const sign = impactAmount < 0 ? '+' : '- ';
     return sign.repeat(Math.abs(impactAmount));
-  }
-
-  toggleAllResults() {
-    this.expandedAll = !this.expandedAll;
-
-    this.expandedGhg = this.expandedAll;
-    this.expandedEe = this.expandedAll;
-    this.expandedRe = this.expandedAll;
-    this.expandedTotalCost = this.expandedAll;
-    this.expandedTotalImpact = this.expandedAll;
-  }
-
-  toggleGhgResult() {
-    this.expandedGhg = !this.expandedGhg;
-  }
-
-  toggleEeResult() {
-    this.expandedEe = !this.expandedEe;
-  }
-
-  toggleReResult() {
-    this.expandedRe = !this.expandedRe;
   }
 
   toggleTotalCost() {
