@@ -35,8 +35,9 @@ export enum Sector {
   agriculture = 3,
   industry = 4,
   wasteManagement = 5,
-  general = 6,
-  other = 7,
+  energy = 6,
+  general = 7,
+  other = 8,
 }
 
 export const SectorMap = {
@@ -46,6 +47,7 @@ export const SectorMap = {
   [Sector.agriculture]: 'agriculture',
   [Sector.industry]: 'factory',
   [Sector.wasteManagement]: 'delete',
+  [Sector.energy]: 'bolt',
   [Sector.general]: 'open_with',
   [Sector.other]: 'open_with',
 }
