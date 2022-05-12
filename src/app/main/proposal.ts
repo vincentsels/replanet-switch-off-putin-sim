@@ -19,6 +19,24 @@ export class Proposal {
   getSelectedVariant = () => (this.variants || []).find(v => v.selected);
   getAverageCost = () => this.variants.map(v => v.getTotalCost()).reduce((total, curr) => total + curr, 0) / this.variants.length;
 
+  getSingleOrMinCost() {
+    return this.variants[0].getTotalCost();
+  }
+
+  getMaxCost() {
+    if (this.variants.length === 1) return 0;
+    return this.variants[this.variants.length - 1].getTotalCost();
+  }
+
+  getSingleOrMinTargetAmount(targetType: TargetType) {
+    return this.variants[0].getTargetAmount(targetType);
+  }
+
+  getMaxTargetAmount(targetType: TargetType) {
+    if (this.variants.length === 1) return 0;
+    return this.variants[this.variants.length - 1].getTargetAmount(targetType);
+  }
+
   getSlugTextInLanguage(lang: LanguageType): string {
     let slug = this.slug.find(s => s.lang === lang);
     if (!slug) slug = this.slug.find(s => s.lang === 'en');
@@ -69,7 +87,7 @@ export class Variant {
   selected: boolean = false;
 
   getTargetAmount = (type: TargetType) => this.targets.find(t => t.type === type)?.amount;
-  getTotalCost = () => this.costInitial + (this.costPerYearFixed * 9) +
+  getTotalCost = () => this.costInitial + (this.costPerYearFixed * 3) +
     (Object.values(this.costPerYearVariable || {}).reduce((a, b) => a + b, 0) || 0);
 }
 

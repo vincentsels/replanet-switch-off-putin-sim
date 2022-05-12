@@ -35,7 +35,7 @@
   margin-bottom: 12px;
 }
 
-.proposal-target-summary-cost {
+.proposal-target-summary-item:not(:last-child) {
   &::after {
     opacity: 0.6;
     content: '•';

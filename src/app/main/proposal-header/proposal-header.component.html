@@ -16,23 +16,24 @@
       </div>
     </h2>
     <div class="proposal-target-summary">
-      <span class="proposal-target-summary-cost">
-        <span *ngIf="proposal.variants.length === 1 && proposal.variants[0]; let variant;">
-          {{ variant.getTotalCost() | cost }}
-        </span>
-        <span *ngIf="proposal.variants.length > 1">
-          {{ proposal.variants[0].getTotalCost() | cost }} -
-          {{ proposal.variants[proposal.variants.length - 1].getTotalCost() | cost }}
-        </span>
+      <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinCost(); let cost;">
+        <span>{{ cost | cost }}</span>
+        <span *ngIf="proposal.getMaxCost(); let maxCost"> - {{ maxCost | cost }}</span>
       </span>
-      <span class="proposal-target-summary-target">
-        <span *ngIf="proposal.variants.length === 1 && proposal.variants[0]; let variant;">
-          {{ variant.getTargetAmount(enums.TargetType.reducedCo2emissions) | number }} kt
-        </span>
-        <span *ngIf="proposal.variants.length > 1">
-          {{ proposal.variants[0].getTargetAmount(enums.TargetType.reducedCo2emissions) | number }} -
-          {{ proposal.variants[proposal.variants.length - 1].getTargetAmount(enums.TargetType.reducedCo2emissions) | number }} kt
-        </span>
+      <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.savedRussianGas); let amt;">
+        <mat-icon class="inline">propane</mat-icon>
+        <span>{{ amt | number }} bcm</span>
+        <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianGas); let maxAmt"> - {{ maxAmt | number }} bcm</span>
+      </span>
+      <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.savedRussianOil); let amt;">
+        <mat-icon class="inline">oil_barrel</mat-icon>
+        <span>{{ amt | number }} mb</span>
+        <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianOil); let maxAmt"> - {{ maxAmt | number }} mb</span>
+      </span>
+      <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.reducedCo2emissions); let amt;">
+        <mat-icon class="inline">cloud_download</mat-icon>
+        <span>{{ amt | number }} mt</span>
+        <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.reducedCo2emissions); let maxAmt"> - {{ maxAmt | number }} mt</span>
       </span>
     </div>
     <p>{{ proposal.summary | translateTextAsync | async }}</p>

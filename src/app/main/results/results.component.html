@@ -4,7 +4,35 @@
 
 <div *ngIf="results$ | async; let results">
   <mat-card class="result-section">
-    <h2 class="result-section-collapsed">
+    <h2>{{ 'Impact on Putin' | translate }}</h2>
+    <h3 class="result-section-collapsed">
+      <span class="collapsed-header">
+        <mat-icon class="inline">propane</mat-icon>
+        {{ 'Gas imported' | translate }}
+      </span>
+
+      <mat-progress-bar class="progress" mode="determinate"
+        [color]="results.rgTarget.color"
+        [value]="results.rgTarget.percentage">
+      </mat-progress-bar>
+    </h3>
+
+    <h3 class="result-section-collapsed">
+      <span class="collapsed-header">
+        <mat-icon class="inline">oil_barrel</mat-icon>
+        {{ 'Oil imported' | translate }}
+      </span>
+
+      <mat-progress-bar class="progress" mode="determinate"
+        [color]="results.roTarget.color"
+        [value]="results.roTarget.percentage">
+      </mat-progress-bar>
+    </h3>
+  </mat-card>
+
+  <mat-card class="result-section">
+    <h2>{{ 'European targets' | translate }}</h2>
+    <h3 class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">cloud_download</mat-icon>
         <app-help-widget tooltipKey="helpCo2reductionTarget" textKey="GHG reduction" dialogKey="helpCo2reductionTarget"></app-help-widget>
@@ -14,11 +42,9 @@
         [color]="results.ghgTarget.color"
         [value]="results.ghgTarget.percentage">
       </mat-progress-bar>
-    </h2>
-  </mat-card>
+    </h3>
 
-  <mat-card class="result-section">
-    <h2 class="result-section-collapsed">
+    <h3 class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">savings</mat-icon>
         {{ 'Energy efficiency' | translate }}
@@ -28,11 +54,9 @@
         [color]="results.eeTarget.color"
         [value]="results.eeTarget.percentage">
       </mat-progress-bar>
-    </h2>
-  </mat-card>
+    </h3>
 
-  <mat-card class="result-section">
-    <h2 class="result-section-collapsed">
+    <h3 class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">wb_sunny</mat-icon>
         {{ 'Renewable energy' | translate }}
@@ -42,20 +66,20 @@
         [color]="results.reTarget.color"
         [value]="results.reTarget.percentage">
       </mat-progress-bar>
-    </h2>
+    </h3>
   </mat-card>
 
   <mat-card class="result-section">
-    <h2 *ngIf="expandedTotalCost">
+    <h3 *ngIf="expandedTotalCost">
       <mat-icon class="inline">sell</mat-icon> {{ 'Total cost' | translate }}
       <a [routerLink]="" class="unstyled-link pull-right" (click)="toggleTotalCost()" *ngIf="!this.dialog">
         <mat-icon class="inline">
           {{ expandedTotalCost ? 'expand_more' : 'chevron_left' }}
         </mat-icon>
       </a>
-    </h2>
+    </h3>
 
-    <h2 *ngIf="!expandedTotalCost" class="result-section-collapsed">
+    <h3 *ngIf="!expandedTotalCost" class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">sell</mat-icon>
         {{ (results.totalProfitIncludingIncome > 0 ? 'Total profit' : 'Total cost') | translate }}
@@ -68,7 +92,7 @@
           {{ expandedTotalCost ? 'expand_more' : 'chevron_left' }}
         </mat-icon>
       </a>
-    </h2>
+    </h3>
 
     <div *ngIf="expandedTotalCost">
       <div class="numerical">
@@ -85,16 +109,16 @@
   </mat-card>
 
   <mat-card class="result-section">
-    <h2 *ngIf="expandedTotalImpact">
+    <h3 *ngIf="expandedTotalImpact">
       <mat-icon class="inline">public</mat-icon> {{ 'Total impact' | translate }}
       <a [routerLink]="" class="unstyled-link pull-right" (click)="toggleTotalImpact()" *ngIf="!this.dialog">
         <mat-icon class="inline">
           {{ expandedTotalImpact ? 'expand_more' : 'chevron_left' }}
         </mat-icon>
       </a>
-    </h2>
+    </h3>
 
-    <h2 *ngIf="!expandedTotalImpact" class="result-section-collapsed">
+    <h3 *ngIf="!expandedTotalImpact" class="result-section-collapsed">
       <span class="collapsed-header">
         <mat-icon class="inline">public</mat-icon>
         {{ 'Total impact' | translate }}
@@ -111,7 +135,7 @@
           {{ expandedTotalImpact ? 'expand_more' : 'chevron_left' }}
         </mat-icon>
       </a>
-    </h2>
+    </h3>
 
     <div *ngIf="expandedTotalImpact">
       <div *ngFor="let impactItem of results.totalImpact">

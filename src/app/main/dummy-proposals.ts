@@ -10,7 +10,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'The federal government forbids the sale of personal or small transport vehicles with internal combustion engines. These can still be bought and sold on the second hand market.')
     ],
-    sector: Sector.industry,
+    sector: Sector.energy,
     variants: [
       new Variant({
         ambitionLevel: 1,
@@ -20,7 +20,6 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 30 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
         ]
       })
     ]
@@ -46,7 +45,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 10 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 50 }),
+          new Target({ type: TargetType.savedEnergy, amount: 50 }),
         ]
       }),
       new Variant({
@@ -60,7 +60,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 20 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 100 }),
+          new Target({ type: TargetType.savedEnergy, amount: 100 }),
         ]
       }),
       new Variant({
@@ -74,7 +75,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 30 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 150 }),
+          new Target({ type: TargetType.savedEnergy, amount: 150 }),
         ]
       }),
       new Variant({
@@ -88,7 +90,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 40 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 200 }),
+          new Target({ type: TargetType.savedEnergy, amount: 200 }),
         ]
       }),
     ]
@@ -113,7 +116,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 6 }),
-          new Target({ type: TargetType.addedRenewableEnergy, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 150 }),
+          new Target({ type: TargetType.addedRenewableEnergy, amount: 500 }),
         ]
       }),
     ]
@@ -137,7 +141,7 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 14 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 200 }),
         ]
       }),
     ]
@@ -161,7 +165,7 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 26 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 200 }),
         ]
       }),
     ]
@@ -183,7 +187,8 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 4 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 150 }),
+          new Target({ type: TargetType.savedEnergy, amount: 300 }),
         ]
       }),
     ]
@@ -196,7 +201,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
-    sector: Sector.buildings,
+    sector: Sector.energy,
     variants: [
       new Variant({
         ambitionLevel: 1,
@@ -204,8 +209,8 @@ export const PROPOSALS: ProposalDetail[] = [
         impacts: [
         ],
         targets: [
-          new Target({ type: TargetType.savedRussianGas, amount: 4 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: -5000 }),
+          new Target({ type: TargetType.savedRussianGas, amount: 6 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: -100 }),
         ]
       }),
     ]
@@ -218,7 +223,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
-    sector: Sector.buildings,
+    sector: Sector.energy,
     variants: [
       new Variant({
         ambitionLevel: 1,
@@ -227,7 +232,7 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 22 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: -5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: -75 }),
         ]
       }),
     ]
@@ -240,7 +245,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
-    sector: Sector.buildings,
+    sector: Sector.industry,
     variants: [
       new Variant({
         ambitionLevel: 1,
@@ -249,7 +254,7 @@ export const PROPOSALS: ProposalDetail[] = [
         ],
         targets: [
           new Target({ type: TargetType.savedRussianGas, amount: 7 }),
-          new Target({ type: TargetType.reducedCo2emissions, amount: 5000 }),
+          new Target({ type: TargetType.reducedCo2emissions, amount: 150 }),
         ]
       }),
     ]

@@ -174,15 +174,15 @@ export class ProposalService {
     const selectedVariants = proposals.filter(p => p.selected).flatMap(p => p.variants).filter(v => v.selected);
 
     const russianGasSavedGwh = this.getTotalAmount(selectedVariants, TargetType.savedRussianGas);
-    const russianGasSavedPercentage = russianGasSavedGwh / Results.gasGapBcm * 100;
-    const russianGasSavedColor = russianGasSavedPercentage >= 100 ? 'accent' : 'warn';
+    const russianGasSavedPercentage = 100 - russianGasSavedGwh / Results.gasGapBcm * 100;
+    const russianGasSavedColor = russianGasSavedPercentage > 0 ? 'warn' : 'accent';
 
     const rgTarget = new TargetResult(Results.gasGapBcm, 'bcm', 0, russianGasSavedGwh,
       russianGasSavedColor, russianGasSavedPercentage);
 
     const russianOilSavedGwh = this.getTotalAmount(selectedVariants, TargetType.savedRussianOil);
-    const russianOilSavedPercentage = russianOilSavedGwh / Results.oilGapMb * 100;
-    const russianOilSavedColor = russianOilSavedPercentage >= 100 ? 'accent' : 'warn';
+    const russianOilSavedPercentage = 100 - russianOilSavedGwh / Results.oilGapMb * 100;
+    const russianOilSavedColor = russianOilSavedPercentage > 0 ? 'warn' : 'accent';
 
     const roTarget = new TargetResult(Results.oilGapMb, 'mb', 0, russianOilSavedGwh,
       russianOilSavedColor, russianOilSavedPercentage);
