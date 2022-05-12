@@ -18,9 +18,9 @@ import { Results } from './results';
 export class ResultsComponent implements OnInit {
   results$: Observable<Results>;
 
-  ghgGapCumulativeKt = Results.ghgGapCumulativeKt;
-  reGapTargetGwh = Results.reGapTargetGwh;
-  eeGapTargetGwh = Results.eeGapTargetGwh;
+  ghgGapCumulativeKt = Results.co2GapCumulativeMt;
+  reGapTargetGwh = Results.reGapTargetTwh;
+  eeGapTargetGwh = Results.eeGapTargetTwh;
 
   expandedAll = false;
   expandedGhg = false;

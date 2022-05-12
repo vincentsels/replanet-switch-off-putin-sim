@@ -7,11 +7,10 @@ export class Proposal {
   title: TranslatedText[] = [];
   slug: TranslatedText[] = [];
   summary: TranslatedText[] = [];
-  policyLevel?: PolicyLevel;
   variants: Variant[] = [];
   sector?: Sector;
 
-  pictureThumb?: string;
+  icon?: string;
 
   selected: boolean = false;
   selectedAmbitionLevel: number = 0;
@@ -27,16 +26,6 @@ export class Proposal {
 
     return slug.text;
   }
-}
-
-export enum PolicyLevel {
-  unknown = 0,
-  local = 1,
-  provincial = 2,
-  flemish = 3,
-  wallonian = 4,
-  brussels = 5,
-  federal = 6,
 }
 
 export enum Sector {
@@ -94,18 +83,11 @@ export class Target {
 
 export enum TargetType {
   none = 0,
-  /**
-   * CO2e-reduction in kilotons by target date.
-   */
-  ghgReduction = 1,
-  /**
-   * Reduction of energy consumption in GWh by target date.
-   */
-  energyEfficiency = 2,
-  /**
-   * Increase in production of renewable energy in GWh by target date.
-   */
-  renewableEnergy = 3,
+  savedRussianGas = 1,
+  savedRussianOil = 2,
+  reducedCo2emissions = 3,
+  savedEnergy = 4,
+  addedRenewableEnergy = 5,
 }
 
 export class Impact {
