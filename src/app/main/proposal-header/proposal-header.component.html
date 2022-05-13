@@ -7,13 +7,13 @@
       <ng-container *ngIf="!card && !dialog">
         <mat-icon class="inline">{{ proposal.icon }}</mat-icon> {{ proposal.title | translateText }}
       </ng-container>
-      <div ngClass.gt-xs="pull-right gt-xs-proposal-extra-info" fxHide.lt-sm>
+      <!-- <div ngClass.gt-xs="pull-right gt-xs-proposal-extra-info" fxHide.lt-sm>
         <div class="proposal-icons info">
           <mat-icon *ngIf="proposal.sector" matTooltip="{{ enums.Sector[proposal.sector] | translate }}">
             {{ proposal.getSectorIcon() }}
           </mat-icon>
         </div>
-      </div>
+      </div> -->
     </h2>
     <div class="proposal-target-summary">
       <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinCost(); let cost;">

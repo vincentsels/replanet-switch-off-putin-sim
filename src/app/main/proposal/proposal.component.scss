@@ -18,6 +18,20 @@
   width: 100%;
 }
 
+.checkbox-and-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.proposal-checkbox {
+  margin-right: 12px;
+
+  .mat-checkbox-inner-container {
+    height: 24px !important;
+    width: 24px !important;
+  }
+}
+
 .gt-xs-proposal-extra-info {
   text-align: right;
 }

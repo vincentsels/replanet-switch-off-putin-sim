@@ -2,12 +2,12 @@
   <div fxFlex="60%" fxFlex.lt-md="100%" class="proposals">
     <h1 class="results-header">
       <app-help-widget tooltipKey="helpProposals" textKey="Proposals" dialogKey="helpProposals" [withoutSpace]="true"></app-help-widget>
-      <div class="project-filters" ngClass.xs="project-filters-xs">
+      <!-- <div class="project-filters" ngClass.xs="project-filters-xs">
         <mat-form-field>
           <mat-label>{{ 'Filter proposals' | translate }}</mat-label>
           <input matInput type="text" [(ngModel)]="projectsFilter" (input)="filterChanged()">
         </mat-form-field>
-      </div>
+      </div> -->
     </h1>
 
     <div *ngIf="filteredProjects$ | async; let filteredProjects">

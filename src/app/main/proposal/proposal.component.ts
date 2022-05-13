@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { EnumsService } from '../../common/enums.service';
 import { Proposal, Variant } from '../proposal';
@@ -22,11 +23,11 @@ export class ProposalComponent {
     return this.proposal.variants.find(v => v.selected);
   }
 
-  selectProposal() {
+  selectProposal(event: MatCheckboxChange) {
     if (!this.proposal) return;
-    if (this.proposal.selected) return;
 
-    this.updateSelected(this.proposal.variants[0]);
+    if (event.checked) this.updateSelected(this.proposal.variants[0]);
+    else this.service.clearVariant(this.proposal);
   }
 
   updateSelected(variant: Variant) {

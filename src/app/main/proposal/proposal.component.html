@@ -1,37 +1,21 @@
-<div *ngIf="proposal" class="proposal" matRipple [matRippleDisabled]="proposal.selected">
-  <mat-card class="proposal-card" [class.selectable]="!proposal.selected" (click)="selectProposal()">
-    <app-proposal-header [proposal]="proposal" [card]="true"></app-proposal-header>
+<div *ngIf="proposal" class="proposal">
+  <mat-card class="proposal-card">
+    <div class="checkbox-and-header">
+      <mat-checkbox class="proposal-checkbox" [checked]="proposal.selected" (change)="selectProposal($event)"></mat-checkbox>
+      <div>
+        <app-proposal-header [proposal]="proposal" [card]="true"></app-proposal-header>
 
-    <div style="clear: both" *ngIf="proposal.selected">
-      <mat-button-toggle-group class="variants" name="variant">
-        <mat-button-toggle (click)="clearVariant(); $event.stopPropagation()" [checked]="!proposal.selected" matTooltip="{{ 'Deselect' | translate }}">
-          <div class="ambition-level" fxHide.lt-sm>
-            <div class="ambition-level-title">X</div>
-          </div>
-          <div fxHide.gt-xs>{{ 'None' | translate }}</div>
-        </mat-button-toggle>
-        <mat-button-toggle *ngFor="let variant of proposal.variants" [checked]="variant.selected"
-          (click)="updateSelected(variant); $event.stopPropagation()">
-          <div fxHide.gt-xs>
-            {{ variant.ambitionLevel }}
-          </div>
-          <div class="ambition-level" fxHide.lt-sm>
-            <div class="ambition-level-title" fxHide.lt-sm>{{ variant.ambitionLevel }}</div>
-            <div class="ambition-level-body">
-              <span class="ambition-level-body-text" fxHide.lt-lg>{{ variant.title | translateTextAsync | async }}</span>
-              <span class="ambition-level-body-icons">
-                <span class="ambition-level-reduction">
-                  <mat-icon class="inline">cloud_download</mat-icon> {{ variant.getTargetAmount(enums.TargetType.reducedCo2emissions) | number }} kt
-                </span>
-                <span class="ambition-level-cost" fxHide.lt-lg>
-                  <mat-icon class="inline" style="margin-left: 12px">euro</mat-icon> {{ variant.getTotalCost() | number }}
-                </span>
-              </span>
-            </div>
-          </div>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-
+        <div style="clear: both" *ngIf="proposal.selected && proposal.variants.length > 1">
+          <mat-button-toggle-group class="variants" name="variant">
+            <mat-button-toggle *ngFor="let variant of proposal.variants" [checked]="variant.selected"
+              (click)="updateSelected(variant); $event.stopPropagation()">
+              <div>
+                <strong>{{ variant.ambitionLevel }}</strong> {{ variant.title | translateTextAsync | async }}
+              </div>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
       <!-- <div class="variant-body">
         <div *ngIf="proposal.selectedAmbitionLevel && getSelectedVariant(); let selectedVariant">
           <div fxLayout fxLayoutGap="12px">
