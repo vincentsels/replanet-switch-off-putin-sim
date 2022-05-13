@@ -10,6 +10,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'The federal government forbids the sale of personal or small transport vehicles with internal combustion engines. These can still be bought and sold on the second hand market.')
     ],
+    icon: 'propane',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -32,6 +33,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'The federal government requires all suppliers of products and services to display the carbon footprint (and optionally wider ecological impact), so consumers can take that into account.'),
     ],
+    icon: 'thermostat',
     sector: Sector.buildings,
     variants: [
       new Variant({
@@ -104,6 +106,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'solar_power',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -130,6 +133,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'curtains_closed',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -154,6 +158,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'web_stories',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -178,6 +183,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'heat_pump',
     sector: Sector.buildings,
     variants: [
       new Variant({
@@ -201,6 +207,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'oil_barrel',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -223,6 +230,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'local_fire_department',
     sector: Sector.energy,
     variants: [
       new Variant({
@@ -245,6 +253,7 @@ export const PROPOSALS: ProposalDetail[] = [
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
     ],
+    icon: 'gavel',
     sector: Sector.industry,
     variants: [
       new Variant({

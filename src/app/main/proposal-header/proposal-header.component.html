@@ -2,13 +2,13 @@
   <div>
     <h2>
       <a class="title-link" *ngIf="card && !dialog" (click)="openProposalDetailDialog()" (click)="$event.stopPropagation()">
-        {{ proposal.title | translateText }}
+        <mat-icon class="inline">{{ proposal.icon }}</mat-icon> {{ proposal.title | translateText }}
       </a>
       <ng-container *ngIf="!card && !dialog">
-        {{ proposal.title | translateText }}
+        <mat-icon class="inline">{{ proposal.icon }}</mat-icon> {{ proposal.title | translateText }}
       </ng-container>
       <div ngClass.gt-xs="pull-right gt-xs-proposal-extra-info" fxHide.lt-sm>
-        <div class="proposal-icons">
+        <div class="proposal-icons info">
           <mat-icon *ngIf="proposal.sector" matTooltip="{{ enums.Sector[proposal.sector] | translate }}">
             {{ proposal.getSectorIcon() }}
           </mat-icon>
@@ -36,6 +36,6 @@
         <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.reducedCo2emissions); let maxAmt"> - {{ maxAmt | number }} mt</span>
       </span>
     </div>
-    <p>{{ proposal.summary | translateTextAsync | async }}</p>
+    <!-- <p>{{ proposal.summary | translateTextAsync | async }}</p> -->
   </div>
 </div>
