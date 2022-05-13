@@ -191,6 +191,14 @@ export class ProposalService {
       (Results.gasGapBcm - this.getTotalAmount(selectedVariants, TargetType.savedRussianGas)) * Results.pricePerBcm +
       (Results.oilGapMb - this.getTotalAmount(selectedVariants, TargetType.savedRussianOil)) * Results.priceDifferencePerMb;
 
+    let image = '';
+    for (let threshold of Results.moneyImageMap) {
+      if (totalMoneyToRussia <= threshold.threshold) {
+        image = threshold.image;
+        break;
+      }
+    }
+
     const ghgReducedKt = this.getTotalAmount(selectedVariants, TargetType.reducedCo2emissions);
     const ghgReductionPercentage = ghgReducedKt / Results.co2GapCumulativeMt * 100;
     const ghgTax = (Results.co2GapCumulativeMt - ghgReducedKt) * Results.pricePerMtCo2;
@@ -256,6 +264,7 @@ export class ProposalService {
         ghgTarget,
         eeTarget,
         reTarget,
+        image,
         totalMoneyToRussia,
         totalCost,
         totalTax,

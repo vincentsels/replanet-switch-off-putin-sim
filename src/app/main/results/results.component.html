@@ -4,7 +4,8 @@
 
 <div *ngIf="results$ | async; let results">
   <mat-card class="result-section">
-    <h2>{{ 'Impact on Putin' | translate }}</h2>
+
+    <img class="putin-image" [src]="results.image" />
 
     <h3 class="result-section-collapsed">
       <span class="collapsed-header">
