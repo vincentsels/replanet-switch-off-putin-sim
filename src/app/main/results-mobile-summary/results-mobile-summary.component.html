@@ -1,5 +1,27 @@
 <mat-card *ngIf="results$ | async; let results" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="center center">
-  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+  <div class="result-section-mobile" fxFlex="33%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">propane</mat-icon>
+    </span>
+
+    <mat-progress-bar class="progress" mode="determinate"
+      [color]="results.rgTarget.color"
+      [value]="results.rgTarget.percentage">
+    </mat-progress-bar>
+  </div>
+
+  <div class="result-section-mobile" fxFlex="33%" fxLayoutAlign="center center">
+    <span class="result-section-mobile-title-icon">
+      <mat-icon class="inline">oil_barrel</mat-icon>
+    </span>
+
+    <mat-progress-bar class="progress" mode="determinate"
+      [color]="results.roTarget.color"
+      [value]="results.roTarget.percentage">
+    </mat-progress-bar>
+  </div>
+
+  <!-- <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
     <span class="result-section-mobile-title-icon">
       <mat-icon class="inline">cloud_download</mat-icon>
     </span>
@@ -30,15 +52,16 @@
       [color]="results.reTarget.color"
       [value]="results.reTarget.percentage">
     </mat-progress-bar>
-  </div>
+  </div> -->
 
-  <div class="result-section-mobile" fxFlex="25%" fxLayoutAlign="center center">
+  <div class="result-section-mobile" fxFlex="33%" fxLayoutAlign="center center">
     <span class="result-section-mobile-title-icon">
       <mat-icon class="inline">sell</mat-icon>
     </span>
 
     <div class="numerical">
-      <span [class.color-accent]="results.totalCost + results.ghgTarget.tax < 0"> {{ results.totalCost + results.ghgTarget.tax | cost }}</span>
+      {{ results.totalMoneyToRussia | cost }}
+      <!-- <span [class.color-accent]="results.totalCost + results.ghgTarget.tax < 0"> {{ results.totalCost + results.ghgTarget.tax | cost }}</span> -->
     </div>
   </div>
 
