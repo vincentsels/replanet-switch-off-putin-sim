@@ -21,23 +21,23 @@
       </h2>
       <div class="proposal-target-summary">
         <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinCost(); let cost;">
-          <span>{{ cost | cost }}</span>
-          <span *ngIf="proposal.getMaxCost(); let maxCost"> - {{ maxCost | cost }}</span>
+          <span [class]="getCostClass(cost)">{{ cost | cost }}</span>
+          <span *ngIf="proposal.getMaxCost(); let maxCost"> - <span [class]="getCostClass(cost)">{{ maxCost | cost }}</span></span>
         </span>
         <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.savedRussianGas); let amt;">
           <mat-icon class="inline">propane</mat-icon>
-          <span>{{ amt | number }} bcm</span>
-          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianGas); let maxAmt"> - {{ maxAmt | number }} bcm</span>
+          <span [class]="getGasClass(amt)">{{ amt | number }} bcm</span>
+          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianGas); let maxAmt"> - <span [class]="getGasClass(amt)">{{ maxAmt | number }} bcm</span></span>
         </span>
         <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.savedRussianOil); let amt;">
           <mat-icon class="inline">oil_barrel</mat-icon>
-          <span>{{ amt | number }} mb</span>
-          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianOil); let maxAmt"> - {{ maxAmt | number }} mb</span>
+          <span [class]="getOilClass(amt)">{{ amt | number }} mb</span>
+          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.savedRussianOil); let maxAmt"> - <span [class]="getOilClass(amt)">{{ maxAmt | number }} mb</span></span>
         </span>
         <span class="proposal-target-summary-item" *ngIf="proposal.getSingleOrMinTargetAmount(enums.TargetType.reducedCo2emissions); let amt;">
           <mat-icon class="inline">cloud_download</mat-icon>
-          <span>{{ amt | number }} mt</span>
-          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.reducedCo2emissions); let maxAmt"> - {{ maxAmt | number }} mt</span>
+          <span [class]="getCo2Class(amt)">{{ amt | number }} mt</span>
+          <span *ngIf="proposal.getMaxTargetAmount(enums.TargetType.reducedCo2emissions); let maxAmt"> - <span [class]="getCo2Class(amt)">{{ maxAmt | number }} mt</span></span>
         </span>
       </div>
     <!-- <p>{{ proposal.summary | translateTextAsync | async }}</p> -->
