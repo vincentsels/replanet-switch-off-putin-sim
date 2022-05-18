@@ -183,3 +183,5 @@ export class TranslatedText {
 }
 
 export type LanguageType = 'en' | 'nl' | 'fr';
+
+export type ProposalSetType = 'replanet' | 'iea' | 'eu' | 'own';

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, Subject, Subscription } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Proposal } from './proposal';
+import { Proposal, ProposalSetType } from './proposal';
 import { ProposalDetail } from './proposal-details';
 import { ProposalService } from './proposal.service';
 import { ResultsDialogComponent } from './results/results-dialog.component';
@@ -19,6 +19,9 @@ export class MainComponent {
   projectsFilter = '';
   proposalsFilter$ = new BehaviorSubject<string>('');
 
+  selectedProposalType: ProposalSetType = 'replanet';
+  proposalSet: ProposalDetail[] = [];
+
   constructor(public proposalService: ProposalService, private dialog: MatDialog, private translate: TranslateService) {
     this.filteredProposals$ = combineLatest([this.proposalsFilter$, this.proposalService.proposals$])
       .pipe(
@@ -32,6 +35,20 @@ export class MainComponent {
       );
 
     this.proposalService.updateResults();
+
+    this.proposalSetSelectionChanged();
+  }
+
+  proposalSetSelectionChanged() {
+    this.proposalService.clearSelection();
+    if (this.selectedProposalType !== 'own') {
+      this.proposalSet = this.proposalService.getSet(this.selectedProposalType);
+      for (let proposal of this.proposalSet) {
+        this.proposalService.selectVariant(proposal, proposal.variants[proposal.variants.length -1]);
+      }
+    } else {
+      this.proposalSet = [];
+    }
   }
 
   showResults() {

@@ -10,7 +10,18 @@
       </div> -->
     </h1>
 
-    <div *ngIf="filteredProposals$ | async; let filteredProposals">
+    <div class="proposal-types">
+      <mat-radio-group [(ngModel)]="selectedProposalType" (change)="proposalSetSelectionChanged()">
+        <mat-radio-button value="replanet" class="proposal-type">{{ 'Proposal Re-Planet' | translate }}</mat-radio-button>
+        <mat-radio-button value="iea" class="proposal-type">{{ 'Proposal IEA' | translate }}</mat-radio-button>
+        <mat-radio-button value="eu" class="proposal-type">{{ 'Proposal EU' | translate }}</mat-radio-button>
+        <mat-radio-button value="own" class="proposal-type">{{ 'Create your own' | translate }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <app-proposal-set *ngIf="selectedProposalType !== 'own'" [proposalSet]="proposalSet"></app-proposal-set>
+
+    <div *ngIf="selectedProposalType === 'own' && (filteredProposals$ | async); let filteredProposals">
       <app-proposal *ngFor="let proposal of filteredProposals" [proposal]="proposal"></app-proposal>
 
       <p *ngIf="filteredProposals.length > 0 && filteredProposals.length < proposalService.proposals$.value.length">
@@ -20,9 +31,9 @@
       <p *ngIf="filteredProposals.length === 0">
         {{ 'No proposals found with this filter.' }} <a (click)="clearFilter()">{{ 'Click here to clear it.' | translate }}</a>
       </p>
-    </div>
 
-    <button mat-raised-button (click)="clearSelection()" style="margin-top: 12px">{{ 'Clear selection' | translate }}</button>
+      <button mat-raised-button (click)="clearSelection()" style="margin-top: 12px">{{ 'Clear selection' | translate }}</button>
+    </div>
   </div>
   <div fxFlex="40%" fxFlex.lt-md="100%" ngClass.gt-sm="results">
     <app-results></app-results>

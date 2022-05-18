@@ -15,6 +15,7 @@ import { ProposalDetail } from '../proposal-details';
 export class ProposalHeaderComponent {
   @Input() proposal?: Proposal;
   @Input() card: boolean = false;
+  @Input() set: boolean = false;
   @Input() dialog: boolean = false;
 
   @Output('closeDialog') closeDialogEmitter = new EventEmitter();

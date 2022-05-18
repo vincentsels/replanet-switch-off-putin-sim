@@ -38,6 +38,7 @@ import { ProposalDetailComponent } from './main/proposal-detail/proposal-detail.
 import { ProposalDetailsDialogComponent } from './main/proposal-detail/proposal-detail-dialog.component';
 import { LoremIpsumService } from './common/lorem-ipsum.service';
 import { PartyLogoOrNameComponent } from './common/party-logo-or-name.component';
+import { ProposalSetComponent } from './main/proposal-set/proposal-set.component';
 
 // AoT requires an exported function for factories
 // tslint:disable-next-line:function-name
@@ -67,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SubmitDialogComponent,
     CostEstPipe,
     PartyLogoOrNameComponent,
+    ProposalSetComponent,
   ],
   imports: [
     BrowserModule,
