@@ -9,7 +9,7 @@ import { ImpactAmount, ImpactAmountMap, ImpactDomain, Proposal, ProposalSetType,
 import { Faq, Link, PartyOpinion, ProposalDetail } from './proposal-details';
 import { Results, TargetResult, TotalImpact } from './results/results';
 
-const LS_KEY_SELECTED_VARIANTS = 'replanet.selection';
+export const LS_KEY_SELECTED_VARIANTS = 'replanet.selection';
 
 @Injectable()
 export class ProposalService {
@@ -17,14 +17,18 @@ export class ProposalService {
   results$ = new BehaviorSubject<Results>(new Results());
 
   constructor(private loremIpsumService: LoremIpsumService) {
+    this.loadProposals();
+  }
+
+  public loadProposals() {
     let proposals = PROPOSALS;
 
     for (let proposal of proposals) {
       // Random descriptions
       proposal.description = [
-        new TranslatedText('nl', loremIpsumService.generateParagraphs()),
-        new TranslatedText('fr', loremIpsumService.generateParagraphs()),
-        new TranslatedText('en', loremIpsumService.generateParagraphs()),
+        new TranslatedText('nl', this.loremIpsumService.generateParagraphs()),
+        new TranslatedText('fr', this.loremIpsumService.generateParagraphs()),
+        new TranslatedText('en', this.loremIpsumService.generateParagraphs()),
       ];
 
       // Random party opinions
@@ -32,17 +36,17 @@ export class ProposalService {
         if (toss()) {
           proposal.partyOpinions?.push(
             new PartyOpinion(partyId, proposal.id, [
-              new TranslatedText('nl', loremIpsumService.generateParagraphs(1)),
-              new TranslatedText('fr', loremIpsumService.generateParagraphs(1)),
-              new TranslatedText('en', loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('nl', this.loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('fr', this.loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('en', this.loremIpsumService.generateParagraphs(1)),
             ], true, rnd(1, proposal.variants.length))
           );
         } else {
           proposal.partyOpinions?.push(
             new PartyOpinion(partyId, proposal.id, [
-              new TranslatedText('nl', loremIpsumService.generateParagraphs(1)),
-              new TranslatedText('fr', loremIpsumService.generateParagraphs(1)),
-              new TranslatedText('en', loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('nl', this.loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('fr', this.loremIpsumService.generateParagraphs(1)),
+              new TranslatedText('en', this.loremIpsumService.generateParagraphs(1)),
             ], false)
           );
         }
@@ -83,6 +87,15 @@ export class ProposalService {
     if (selectedVariantNumbers.length > 0) {
       proposals = this.proposals$.value;
 
+      // Clear all
+      proposals.forEach(p => {
+        p.selected = false;
+        p.selectedAmbitionLevel = 0;
+        p.variants.forEach(v => {
+          v.selected = false;
+        })
+      });
+
       for (let selectedVariantNumber of selectedVariantNumbers) {
         const selectedProposal = proposals.find(p => p.id === selectedVariantNumber.id);
         if (selectedProposal) {
@@ -104,7 +117,7 @@ export class ProposalService {
   generateRandomLink = (proposalId: number) => new Link(proposalId, 'https://switchoffputin.org',
     this.loremIpsumService.generateWords(rnd(2, 8)), toss() ? 'nl' : toss() ? 'fr' : 'en');
 
-  selectVariant(proposal: ProposalDetail, variant: Variant) {
+  selectVariant(proposal: ProposalDetail, variant: Variant, saveSelection: boolean = true) {
     if (!proposal) return;
 
     variant.selected = true;
@@ -123,10 +136,10 @@ export class ProposalService {
     proposals[proposals.findIndex(p => p.id === proposal.id)] = new ProposalDetail(proposal);
 
     this.proposals$.next(proposals);
-    this.updateResults();
+    this.updateResults(saveSelection);
   }
 
-  clearVariant(proposal: ProposalDetail) {
+  clearVariant(proposal: ProposalDetail, saveSelection: boolean = true) {
     proposal.selected = false;
     proposal.selectedAmbitionLevel = 0;
 
@@ -141,10 +154,10 @@ export class ProposalService {
     proposals[proposals.findIndex(p => p.id === proposal.id)] = new ProposalDetail(proposal);
 
     this.proposals$.next(proposals);
-    this.updateResults();
+    this.updateResults(saveSelection);
   }
 
-  clearSelection() {
+  clearSelection(saveSelection: boolean = true) {
     const proposals = [
       ...this.proposals$.value,
     ];
@@ -158,10 +171,15 @@ export class ProposalService {
     });
 
     this.proposals$.next(proposals);
-    this.updateResults();
+
+    if (saveSelection) {
+      localStorage.removeItem(LS_KEY_SELECTED_VARIANTS);
+    }
+
+    this.updateResults(saveSelection);
   }
 
-  updateResults() {
+  updateResults(saveSelection: boolean = true) {
     const proposals = this.proposals$.value;
 
     if (!proposals || proposals.length === 0) return;
@@ -169,7 +187,10 @@ export class ProposalService {
     const selectedVariantNumbers = proposals
       .map(p => ({ id: p.id, selectedVariant: p.variants.find(v => v.selected)?.ambitionLevel }))
       .filter(s => s.selectedVariant);
-    localStorage.setItem(LS_KEY_SELECTED_VARIANTS, JSON.stringify(selectedVariantNumbers));
+
+    if (saveSelection && selectedVariantNumbers.length > 0) {
+      localStorage.setItem(LS_KEY_SELECTED_VARIANTS, JSON.stringify(selectedVariantNumbers));
+    }
 
     const selectedVariants = proposals.filter(p => p.selected).flatMap(p => p.variants).filter(v => v.selected);
 

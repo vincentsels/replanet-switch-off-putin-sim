@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { Proposal, ProposalSetType } from './proposal';
 import { ProposalDetail } from './proposal-details';
-import { ProposalService } from './proposal.service';
+import { LS_KEY_SELECTED_VARIANTS, ProposalService } from './proposal.service';
 import { ResultsDialogComponent } from './results/results-dialog.component';
 
 @Component({
@@ -36,18 +36,23 @@ export class MainComponent {
 
     this.proposalService.updateResults();
 
+    if (localStorage.getItem(LS_KEY_SELECTED_VARIANTS)) {
+      this.selectedProposalType = 'own';
+    }
+
     this.proposalSetSelectionChanged();
   }
 
   proposalSetSelectionChanged() {
     if (this.selectedProposalType !== 'own') {
-      this.proposalService.clearSelection();
+      this.proposalService.clearSelection(false);
       this.proposalSet = this.proposalService.getSet(this.selectedProposalType);
       for (let proposal of this.proposalSet) {
-        this.proposalService.selectVariant(proposal, proposal.variants[proposal.variants.length -1]);
+        this.proposalService.selectVariant(proposal, proposal.variants[proposal.variants.length -1], false);
       }
     } else {
       this.proposalSet = [];
+      this.proposalService.loadProposals();
     }
   }
 
