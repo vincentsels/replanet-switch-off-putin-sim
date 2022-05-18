@@ -5,19 +5,19 @@
       <!-- <div class="project-filters" ngClass.xs="project-filters-xs">
         <mat-form-field>
           <mat-label>{{ 'Filter proposals' | translate }}</mat-label>
-          <input matInput type="text" [(ngModel)]="projectsFilter" (input)="filterChanged()">
+          <input matInput type="text" [(ngModel)]="proposalsFilter" (input)="filterChanged()">
         </mat-form-field>
       </div> -->
     </h1>
 
-    <div *ngIf="filteredProjects$ | async; let filteredProjects">
-      <app-proposal *ngFor="let proposal of filteredProjects" [proposal]="proposal"></app-proposal>
+    <div *ngIf="filteredProposals$ | async; let filteredProposals">
+      <app-proposal *ngFor="let proposal of filteredProposals" [proposal]="proposal"></app-proposal>
 
-      <p *ngIf="filteredProjects.length > 0 && filteredProjects.length < proposalService.proposals$.value.length">
+      <p *ngIf="filteredProposals.length > 0 && filteredProposals.length < proposalService.proposals$.value.length">
         {{ 'Cannot find the proposal you are looking for? There is a filter applied.' | translate }} <a (click)="clearFilter()">{{ 'Click here to clear it.' | translate }}</a>
       </p>
 
-      <p *ngIf="filteredProjects.length === 0">
+      <p *ngIf="filteredProposals.length === 0">
         {{ 'No proposals found with this filter.' }} <a (click)="clearFilter()">{{ 'Click here to clear it.' | translate }}</a>
       </p>
     </div>

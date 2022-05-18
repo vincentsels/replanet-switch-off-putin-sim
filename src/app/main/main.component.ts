@@ -15,12 +15,12 @@ import { ResultsDialogComponent } from './results/results-dialog.component';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-  filteredProjects$?: Observable<ProposalDetail[]>;
+  filteredProposals$?: Observable<ProposalDetail[]>;
   projectsFilter = '';
-  projectsFilter$ = new BehaviorSubject<string>('');
+  proposalsFilter$ = new BehaviorSubject<string>('');
 
   constructor(public proposalService: ProposalService, private dialog: MatDialog, private translate: TranslateService) {
-    this.filteredProjects$ = combineLatest([this.projectsFilter$, this.proposalService.proposals$])
+    this.filteredProposals$ = combineLatest([this.proposalsFilter$, this.proposalService.proposals$])
       .pipe(
         map(([filter, proposals]) => {
           if (!filter) return proposals;
@@ -41,7 +41,7 @@ export class MainComponent {
   }
 
   filterChanged() {
-    this.projectsFilter$.next(this.projectsFilter);
+    this.proposalsFilter$.next(this.projectsFilter);
   }
 
   clearFilter() {
