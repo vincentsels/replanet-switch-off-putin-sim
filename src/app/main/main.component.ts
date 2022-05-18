@@ -40,8 +40,8 @@ export class MainComponent {
   }
 
   proposalSetSelectionChanged() {
-    this.proposalService.clearSelection();
     if (this.selectedProposalType !== 'own') {
+      this.proposalService.clearSelection();
       this.proposalSet = this.proposalService.getSet(this.selectedProposalType);
       for (let proposal of this.proposalSet) {
         this.proposalService.selectVariant(proposal, proposal.variants[proposal.variants.length -1]);
