@@ -19,20 +19,24 @@ export class Proposal {
   getSelectedVariant = () => (this.variants || []).find(v => v.selected);
   getAverageCost = () => this.variants.map(v => v.getTotalCost()).reduce((total, curr) => total + curr, 0) / this.variants.length;
 
-  getSingleOrMinCost() {
+  getSingleOrMinCost(fromSelected: boolean) {
+    if (fromSelected) return this.getSelectedVariant()?.getTotalCost();
     return this.variants[0].getTotalCost();
   }
 
-  getMaxCost() {
+  getMaxCost(ignore: boolean) {
+    if (ignore) return 0;
     if (this.variants.length === 1) return 0;
     return this.variants[this.variants.length - 1].getTotalCost();
   }
 
-  getSingleOrMinTargetAmount(targetType: TargetType) {
+  getSingleOrMinTargetAmount(targetType: TargetType, fromSelected: boolean) {
+    if (fromSelected) return this.getSelectedVariant()?.getTargetAmount(targetType);
     return this.variants[0].getTargetAmount(targetType);
   }
 
-  getMaxTargetAmount(targetType: TargetType) {
+  getMaxTargetAmount(targetType: TargetType, ignore: boolean) {
+    if (ignore) return 0;
     if (this.variants.length === 1) return 0;
     return this.variants[this.variants.length - 1].getTargetAmount(targetType);
   }
