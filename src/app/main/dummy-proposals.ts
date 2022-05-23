@@ -28,7 +28,7 @@ export const PROPOSALS: ProposalDetail[] = [
   new ProposalDetail({
     id: 2,
     title: [
-      new TranslatedText('en', 'EU-wid energy saving by moderating heating or airconditioning'),
+      new TranslatedText('en', 'EU-wide energy saving by moderating heating or airconditioning'),
     ],
     summary: [
       new TranslatedText('en', 'The federal government requires all suppliers of products and services to display the carbon footprint (and optionally wider ecological impact), so consumers can take that into account.'),
@@ -128,7 +128,7 @@ export const PROPOSALS: ProposalDetail[] = [
   new ProposalDetail({
     id: 4,
     title: [
-      new TranslatedText('en', 'Stop nuclear phase-out an drestart recently closed reactors in Germany, Sweden and Belgium'),
+      new TranslatedText('en', 'Stop nuclear phase-out and restart recently closed reactors in Germany, Sweden and Belgium'),
     ],
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
@@ -153,7 +153,7 @@ export const PROPOSALS: ProposalDetail[] = [
   new ProposalDetail({
     id: 5,
     title: [
-      new TranslatedText('en', 'Emergency effort to better utilise French reactor fleet'),
+      new TranslatedText('en', 'Emergency effort to better utilize French reactor fleet'),
     ],
     summary: [
       new TranslatedText('en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
